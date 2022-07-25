@@ -1,0 +1,68 @@
+<div class="container-fluid" style="padding-top: 30px;">
+  <div class="row justify-content-center">
+    <div class="col-sm-5 col-sm-offset-2">
+
+      <%= form_with(model: @product) do |form| %>
+      <div class="card">
+        <h5 class="card-header text-center">Editar Producto</h5>
+
+        <div class="card-body content">
+          <div class="row">
+            <div class="col-2">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">ID</label>
+              <input class="form-control" type="text" value="<%= @product.id %>" aria-label="Disabled input example" disabled readonly>
+            </div>
+            <div class="col-5">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Codigo</label>
+              <%= form.text_field :code, class: "form-control" %>
+            </div>
+            <div class="col-5">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Nombre</label>
+              <%= form.text_field :name, class: "form-control" %>
+            </div>
+
+            <div class="col-12" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Descripción</label>
+              <%= form.text_area :description, class: "form-control", rows: "3" %>
+            </div>
+
+            <div class="col-12" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Ingredientes</label>
+              <%= form.text_area :ingredients, class: "form-control", rows: "3" %>
+            </div>
+
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Stock</label>
+              <%= form.number_field :stock, class: "form-control", style: "text-align: right" %>
+            </div>
+            </br>
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Precio</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <%= form.number_field :price, class: "form-control", style: "text-align: right" %>
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <%= link_to products_path(@product) do %>
+                <button type="button" class="btn btn-secondary" style="width:100%"> Cancelar </button>
+              <% end %>
+            </div>
+            <div class="col-4">
+              <%=form.submit "Guardar", class: "btn btn-success", style: "width:100%" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%end%>
+
+    </div>
+  </div>
+</div>

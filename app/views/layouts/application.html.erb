@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sayagbeh</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+    
+  <body>
+    <nav id="navbarHeader" class="navbar navbar-expand-lg" style="background-color:#0a3622">
+      <div class="container-fluid">
+        <div>
+          <a class="navbar-brand text-white">
+            <i class="bi bi-shop" style="font-size: 30px; padding-left: 10px;"></i>
+          </a>
+          <a class="navbar-brand text-white fs-4 w-bold h1" style="text-decoration:none" href="/">Sayagbeh</a>
+        </div>
+        <ul class="nav justify-content-center">
+          <% unless current_page?(new_user_session_path) %>
+            <% if current_page?(root_path) %>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#comunity">Comunidad</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#products">Produtos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#platform">Plataforma</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#contact">Contactanos</a>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" href="/dashboard">Estadisticas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" href="/users">Colaboradores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" href="/products">Productos</a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <div class="navbar-text" style="padding-right: 15px;">
+          <% if user_signed_in? %>
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+              <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                  <a class="text-white fs-7 fw-semibold" style="text-decoration:none">
+                    <%= current_user.first_name + " " + current_user.last_name %>
+                  </a>
+                </li>
+                <li class="nav-item dropdown" style="padding-left: 10px;">
+                  <a class="dropdown-toggle btn btn-outline-light align-items-center" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill" style="font-size: 15px;"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="/users/new">Registrar Usuario</a></li>
+                    <% if current_page?(root_path) %>
+                      <li><a class="dropdown-item" href="/dashboard/index">Ingresar al Sistema</a></li>
+                    <% end %>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                    <li>
+                      <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, target: "_self", class: "dropdown-item" %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          <% else %>
+            <% if current_page?(new_user_session_path) %>
+              <span class="navbar-text text-white">
+              
+              </span>
+            <% else %>
+              <%= link_to "Iniciar Sesión", new_user_session_path, class: "nav-link text-white fw-light", style: "text-decoration:none", target: "_self" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 0;">
+        <%= notice %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-bottom: 0;">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <%= yield %>
+
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<div id="contact" class="row justify-content-center">
+  <div class="col-sm-8 col-sm-offset-2">
+    <br/>
+    <div class="card">
+      <div class="card-header bg-success p-2 bg-opacity-25">
+        <div class="row">
+          <div class="col" style="padding-top: 5px;">
+            <h5 style="padding-left: 20px;">Productos</h5>
+          </div>
+          <% if current_user.admin %>
+            <div class="col d-flex justify-content-end">
+              <%= link_to new_product_path do %>
+                <i type='button' class="btn btn-success bi bi-plus-lg"></i>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Codigo</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Ingredientes</th>
+              <th scope="col" class="text-end">Piezas</th>
+              <th scope="col" class="text-end">Precio</th>
+              <th scope="col" class="text-end"></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <% @products.each do |product| %>
+              <tr>
+                <th scope="row"><%=product.code %></th>
+                <td><%=product.name %></td>
+                <td><%=product.description %></td>
+                <td><%=product.ingredients %></td>
+                <td class="text-end"><%=product.stock %></td>
+                <td class="text-end">$ <%=product.price %>.00</td>
+                <td class="text-end">
+                  <%= link_to product_path(product) do %>
+                    <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer bg-success p-2 bg-opacity-25">
+          <ul class="pagination justify-content-end" style="margin-bottom: 0;">
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

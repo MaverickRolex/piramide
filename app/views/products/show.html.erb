@@ -1,0 +1,70 @@
+<div class="container-fluid" style="padding-top: 30px;">
+  <div class="row justify-content-center">
+    <div class="col-sm-4 col-sm-offset-2">
+
+      <div class="card">
+
+        <div class="card-header container">
+          <div class="row align-items-center">
+            <div class="col-10 text-start">
+              <h5 style="margin-bottom: 0;">Informacion de Producto</h5>
+            </div>
+            <% if current_user.admin %>
+              <div class="col-1 text-end">
+                <%= link_to edit_product_path(@product), class: "btn btn-success" do %>
+                  <i class="bi bi-pencil-square"></i>
+                <% end %>
+              </div>
+              <div class="col-1 text-end">
+                <%= button_to product_path, method: :delete, class: "btn btn-danger" do %>
+                  <i class="bi bi-trash"></i>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-2">
+            <label for="exampleFormControlInput1" class="form-label">ID</label>
+            <input class="form-control" type="text" value="<%= @product.id %>" aria-label="Disabled input example" disabled readonly>
+            </div>
+            <div class="col-5">
+              <label for="exampleFormControlInput1" class="form-label">Codigo</label>
+              <input class="form-control" type="text" value="<%= @product.code %>" aria-label="Disabled input example" disabled readonly>
+            </div>
+            <div class="col-5">
+              <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+              <input class="form-control" type="text" value="<%= @product.name %>" aria-label="Disabled input example" disabled readonly>
+            </div>
+            <div class="col-12" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label">Descripción</label>
+              <textarea class="form-control" aria-label="Disabled input example" rows="3" disabled readonly><%= @product.description %></textarea>
+            </div>
+            <div class="col-12" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label">Ingredientes</label>
+              <textarea class="form-control" aria-label="Disabled input example" rows="3" disabled readonly><%= @product.ingredients %></textarea>
+            </div>
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label">Existencias</label>
+              <input class="form-control" type="number" value="<%= @product.stock %>" aria-label="Disabled input example" style="text-align: right" disabled readonly>
+            </div>
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label">Precio</label>
+              <div class="input-group" >
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control text-right" value="<%= @product.price %>" aria-label="Disabled input example" style="text-align: right" disabled readonly>
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
