@@ -29,14 +29,14 @@
 
               <div class="col-6" style="padding-top: 10px;">
                 <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Stock</label>
-                <%= form.number_field :stock, class: "form-control", style="text-align: right"%>
+                <%= form.number_field :stock, class: "form-control", style: "text-align: right" %>
               </div>
-              </br>
+
               <div class="col-6" style="padding-top: 10px;">
                 <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Precio</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <%= form.number_field :price, class: "form-control", style="text-align: right" %>
+                  <%= form.number_field :price, class: "form-control", style: "text-align: right" %>
                   <span class="input-group-text">.00</span>
                 </div>
               </div>
@@ -58,7 +58,7 @@
           </div>
 
         </div>
-      <%end%>
+      <% end %>
 
     </div>
   </div>

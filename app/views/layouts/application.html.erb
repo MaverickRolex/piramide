@@ -9,6 +9,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+    </style>
   </head>
     
   <body>
@@ -45,6 +58,9 @@
               <li class="nav-item">
                 <a class="nav-link text-white fs-5 fw-semibold" href="/products">Productos</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5 fw-semibold" href="/sales">Ventas</a>
+              </li>
             <% end %>
           <% end %>
         </ul>
@@ -64,7 +80,7 @@
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                     <li><a class="dropdown-item" href="/users/new">Registrar Usuario</a></li>
                     <% if current_page?(root_path) %>
-                      <li><a class="dropdown-item" href="/dashboard/index">Ingresar al Sistema</a></li>
+                      <li><a class="dropdown-item" href="/dashboard">Ingresar al Sistema</a></li>
                     <% end %>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
