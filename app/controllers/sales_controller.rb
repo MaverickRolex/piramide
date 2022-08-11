@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_current_sale, only: [:new, :show]
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -14,17 +15,19 @@ class SalesController < ApplicationController
   end
 
   def show
+    @product = Product.find(params[:product_id]) if params[:product_id]
   end
 
   def edit
   end
 
   def update
+    binding.pry
   end
 
   def destroy
     if @sale.destroy
-      flash.now[:notice] = "Venta cancelada."
+      flash[:notice] = "Venta cancelada."
       redirect_to action: "index"
     end
   end

@@ -23,19 +23,33 @@
               <th scope="col">Total</th>
               <th scope="col">Saldo</th>
               <th scope="col">Fecha</th>
+              <th scope="col">Estatus</th>
               <th scope="col" class="text-end">Acciones</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
             <% @sales.each do |sale| %>
               <tr>
-                <th scope="row" class="align-middle text-center"><%= sale && sale.id %></th>
-                <td class="align-middle"><%= sale && sale.user.first_name %> <%= sale && sale.user.last_name %></td>
-                <td class="align-middle"><%= sale && sale.total_amount %></td>
-                <td class="align-middle"><%= sale && sale.total_balance %></td>
-                <td class="align-middle"><%= sale && sale.updated_at %></td>
+                <th scope="row" class="align-middle text-center"><%= sale&.id %></th>
+                <td class="align-middle"><%= sale&.user.first_name %> <%= sale&.user.last_name %></td>
+                <td class="align-middle">
+                  <% if sale&.total_amount? %>
+                    $ <%= sale&.total_amount %>.00
+                  <% end %>
+                </td>
+                <td class="align-middle">
+                  <% if sale&.total_balance? %>
+                    $ <%= sale&.total_balance %>.00
+                  <% end %>
+                </td>
+                <td class="align-middle"><%= sale&.updated_at %></td>
+                <td class="align-middle">
+                  <span class="badge bg-danger"> <%= sale&.sale_status %> </span>
+                </td>
                 <td class="align-middle text-end">
-                  <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
+                  <%= link_to sale_path(sale) do %>
+                    <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
+                  <% end %>
                 </td>
               </tr>
             <% end %>

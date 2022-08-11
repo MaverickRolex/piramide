@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  before_action :find_current_sale
 
   def find_current_sale
     return unless current_user

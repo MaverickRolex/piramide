@@ -5,8 +5,8 @@
   <td class="align-middle text-end"><%= sale_product&.quantity %></td>
   <td class="align-middle text-end">$ <%= sale_product&.total_price %>.00</td>
   <td class="align-middle text-end">
-    <%= button_to sale_product_path(sale_product), method: :delete, class: "btn btn-danger" do %>
-      <i class="bi bi-x-square"></i>
+    <%= button_to sale_product_path(sale_product), method: :delete, class: "btn btn-danger btn-sm" do %>
+      <i class="bi bi-x-lg"></i>
     <% end %>
   </td>
 </tr>

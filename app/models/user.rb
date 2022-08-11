@@ -9,4 +9,12 @@ class User < ApplicationRecord
   def pending_sales
     sales.pending
   end
+
+  def autorized_sales
+    sales.autorized
+  end
+
+  def completed_sales
+    sales.completed
+  end
 end

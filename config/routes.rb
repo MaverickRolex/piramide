@@ -5,12 +5,12 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "dashboard#index"
 
-  
-
   resources :users
   resources :products do
     post "search", on: :collection
   end
   resources :sales
-  resources :sale_products
+  resources :sale_products do
+    delete "cancel"
+  end
 end
