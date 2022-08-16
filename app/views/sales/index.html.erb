@@ -1,0 +1,84 @@
+<div id="contact" class="row justify-content-center">
+  <div class="col-sm-8 col-sm-offset-2">
+    <br/>
+    <div class="card">
+      <div class="card-header bg-success p-2 bg-opacity-25">
+        <div class="row">
+          <div class="col align-self-center" style="padding-top: 5px;">
+            <h5 style="padding-left: 20px;">Ventas</h5>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <%= link_to new_sale_path do %>
+              <i type='button' class="btn btn-success bi bi-plus-lg"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">Tiket</th>
+              <th scope="col">Colaborador</th>
+              <th scope="col">Total</th>
+              <th scope="col">Saldo</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Estatus</th>
+              <th scope="col" class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <% @sales.each do |sale| %>
+              <tr>
+                <th scope="row" class="align-middle text-center"><%= sale&.id %></th>
+                <td class="align-middle"><%= sale&.user.first_name %> <%= sale&.user.last_name %></td>
+                <td class="align-middle">
+                  <% if sale&.total_amount? %>
+                    $ <%= sale&.total_amount %>.00
+                  <% end %>
+                </td>
+                <td class="align-middle">
+                  <% if sale&.total_balance? %>
+                    $ <%= sale&.total_balance %>.00
+                  <% end %>
+                </td>
+                <td class="align-middle"><%= sale&.updated_at %></td>
+                <td class="align-middle">
+                  <% if sale&.status === "pending" %>
+                    <span class="badge bg-danger"> <%= sale&.sale_status %> </span>
+                  <% end %>
+                  <% if sale&.status === "autorized" %>
+                    <span class="badge bg-warning"> <%= sale&.sale_status %> </span>
+                  <% end %>
+                  <% if sale&.status === "completed" %>
+                    <span class="badge bg-success"> <%= sale&.sale_status %> </span>
+                  <% end %>
+                </td>
+                <td class="align-middle text-end">
+                  <%= link_to sale_path(sale) do %>
+                    <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+       </div>
+      <div class="card-footer bg-success p-2 bg-opacity-25">
+        <ul class="pagination justify-content-end" style="margin-bottom: 0;">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<%= turbo_frame_tag current_sale.id do %>
+  <div class="row align-items-center" style="padding-top:20px; padding-bottom:20px;">
+    <div class="col-3 text-start">
+      <%= form_with url: search_products_path do |form| %>
+        <div class="input-group">
+          <%= form.text_field :code, class: "form-control", placeholder: "Codigo..." %>
+          <%= form.submit "Buscar", class: "btn btn-outline-secondary" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-6 text-start">
+      <div class="input-group">
+        <input type="text" aria-label="name" class="form-control" value="<%= @product&.name %>" style="width:25%;" placeholder= "Producto...">
+        <span class="input-group-text">Disponibles</span>
+        <input type="number" aria-label="stock" class="form-control" value="<%= @product&.stock %>" style="text-align:right; width:40px;">
+        <span class="input-group-text">$</span>
+        <input type="number" aria-label="price" class="form-control" value="<%= @product&.price %>" style="text-align:right; width:40px;">
+        <span class="input-group-text">.00</span>
+      </div>
+    </div>
+    <div class="col-3 text-end">
+      <%= form_with url: sale_products_path do |form| %>
+        <div class="input-group">
+          <%= form.hidden_field :sale_id, value: current_sale.id, class: "form-control" %>
+          <%= form.hidden_field :product_id, value: @product&.id, class: "form-control" %>
+          <span class="input-group-text">Cantidad</span>
+          <%= form.text_field :quantity, class: "form-control" %>
+          <%= button_tag class: "btn btn-success" do %>
+            <i class="bi bi-bag-plus"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

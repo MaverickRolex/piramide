@@ -1,0 +1,67 @@
+<div class="container-fluid" style="padding-top: 30px;">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-8">
+
+      <div class="card">
+
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-6 text-start">
+              <h5 style="margin-bottom: 0;">Tiket No. <%= @sale.id %></h5>
+            </div>
+            <div class="col-6 text-end">
+            <h5 style="margin-bottom: 0;"><%= @sale.user.first_name + " " + @sale.user.last_name %></h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body content">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col" class="text-end">Precio</th>
+                <th scope="col" class="text-end">Cantidad</th>
+                <th scope="col" class="text-end">Importe</th>
+              </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+              <%= render @sale&.sale_products %>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="align-middle text-end">Total</td>
+                <td class="align-middle text-end">$
+                  <%= @sale&.sale_products_total %>.00</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3">
+              <%= link_to "Regresar", sales_path, class: "btn btn-secondary", style: "width:100%" %>
+            </div>
+            <div class="col-3">
+              <%= form_for :sale, url: sale_path(@sale), method: :patch do |form| %>
+                <%= form.hidden_field :status, value: "autorized", class: "form-control" %>
+                <%= form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

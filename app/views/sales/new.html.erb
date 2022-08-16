@@ -1,0 +1,106 @@
+<div class="container-fluid" style="padding-top: 30px;">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-8">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col-6 text-start">
+                <h5 style="margin-bottom: 0;">Tiket No. <%= current_sale.id %></h5>
+              </div>
+              <div class="col-6 text-end">
+              <h5 style="margin-bottom: 0;"><%= current_user.first_name + " " + current_user.last_name %></h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body content">
+              <%= render 'sales/form', product: @product %>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center">Codigo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col" class="text-end">Precio</th>
+                    <th scope="col" class="text-end">Cantidad</th>
+                    <th scope="col" class="text-end">Importe</th>
+                    <th scope="col" class="text-end">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <%= render current_sale&.sale_products %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="align-middle text-end">Total</td>
+                    <td class="align-middle text-end">$
+                      <%= current_sale&.sale_products_total %>.00</td>
+                    <td></td>
+                  </tr>
+                </tfoot>
+              </table>
+          </div>
+
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100%">
+                  Consulta Productos
+                </button>
+              </div>
+              <div class="col-3"></div>
+              <div class="col-3">
+                <%= button_to "Cancelar", sale_product_cancel_path(current_sale), method: :delete, class: "btn btn-danger", style: "width:100%" %>
+              </div>
+              <div class="col-3">
+                <%= form_for :sale, url: sale_path(current_sale), method: :patch do |form| %>
+                  <%= form.hidden_field :total_amount, value: current_sale&.sale_products_total, class: "form-control" %>
+                  <%= form.hidden_field :total_balance, value: current_sale&.sale_products_total, class: "form-control" %>
+                  <%=form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Consulta</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col" class="text-end">Existencia</th>
+                        <th scope="col" class="text-end">Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                      <% products_list.each do |product| %>
+                        <tr>
+                          <th scope="row" class="align-middle"><%= product.code %></th>
+                          <td class="align-middle"><%= product.name %></td>
+                          <td class="align-middle text-end"><%= product.stock %></td>
+                          <td class="align-middle text-end">$ <%= product.price %>.00</td>
+                        </tr>
+                      <% end %>
+                    </tbody>  
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+    </div>
+  </div>
+</div>

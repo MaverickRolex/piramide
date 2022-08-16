@@ -3,4 +3,18 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :sales
+
+  def pending_sales
+    sales.pending
+  end
+
+  def autorized_sales
+    sales.autorized
+  end
+
+  def completed_sales
+    sales.completed
+  end
 end

@@ -3,8 +3,15 @@ Rails.application.routes.draw do
 
   root "homes#index"
 
-  get "dashboard/index", to: "dashboard#index"
+  get "dashboard", to: "dashboard#index"
 
   resources :users
-  resources :products
+  resources :products do
+    post "search", on: :collection
+  end
+  resources :sales
+  resources :sale_products do
+    delete "cancel"
+  end
+  resources :messages
 end
