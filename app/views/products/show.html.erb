@@ -6,19 +6,23 @@
 
         <div class="card-header container">
           <div class="row align-items-center">
-            <div class="col-10 text-start">
+            <div class="col-9 text-start">
               <h5 style="margin-bottom: 0;">Informacion de Producto</h5>
             </div>
             <% if current_user.admin %>
-              <div class="col-1 text-end">
-                <%= link_to edit_product_path(@product), class: "btn btn-success" do %>
-                  <i class="bi bi-pencil-square"></i>
-                <% end %>
-              </div>
-              <div class="col-1 text-end">
-                <%= button_to product_path, method: :delete, class: "btn btn-danger" do %>
-                  <i class="bi bi-trash"></i>
-                <% end %>
+              <div class="col-3 text-end">
+                <div class="row">
+                  <div class="col-6">
+                    <%= link_to edit_product_path(@product), class: "btn btn-success" do %>
+                      <i class="bi bi-pencil-square"></i>
+                    <% end %>
+                  </div>
+                  <div class="col-6">
+                    <%= button_to product_path, method: :delete, class: "btn btn-danger" do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             <% end %>
           </div>

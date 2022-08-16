@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :sale_products do
     delete "cancel"
   end
+  resources :messages
 end

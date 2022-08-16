@@ -180,27 +180,35 @@
           <br/>
         </blockquote>
       </figure>
-      <Form>
+
+      <%= form_for :message, url: messages_path do |form| %>
         <div class="mb-3">
           <label for="nameField" class="form-label fs-5 fw-semibold h1">Nombre Completo</label>
-          <input id="nameField" class="form-control form-control-lg" type="text" placeholder="Alberto Acosta">
+          <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Alberto Acosta", id: "nameField" %>
         </div>
         <div class="mb-3">
           <label for="mailField" class="form-label fs-5 fw-semibold h1">Correo Electronico</label>
-          <input id="mailField" class="form-control form-control-lg" type="email" placeholder="name@example.com">
+          <%= form.text_field :email, class: "form-control form-control-lg", placeholder: "name@example.com", id: "mailField" %>
         </div>
         <div class="mb-3">
           <label for="phoneField" class="form-label fs-5 fw-semibold h1">Numero Celular</label>
-          <input id="phoneField" class="form-control form-control-lg" type="number" placeholder="000 000 0000">
+          <%= form.text_field :phone, class: "form-control form-control-lg", placeholder: "000 000 0000", id: "phoneField" %>
+        </div>
+        <div class="mb-3">
+          <label for="titleField" class="form-label fs-5 fw-semibold h1">Titulo</label>
+          <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "Introduccion", id: "titleField" %>
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label fs-5 fw-semibold h1">Mensaje</label>
-          <textarea id="messageField" class="form-control form-control-lg" type="text" placeholder="Mensaje"></textarea>
+          <%= form.text_area :message, class: "form-control form-control-lg", placeholder: "Mensaje", id: "mailField" %>
+          <%= form.hidden_field :readed, value: false, class: "form-control" %>
         </div>
-        <div>
-          <button type="submit" class="btn btn-light mb-3">Enviar Mensaje</button>
+        <div class="mb-3">
+          <%= button_tag class: "btn btn-light" do %>
+            Enviar Mensaje
+          <% end %>
         </div>
-      </Form>
+      <% end %>
       <br/>
       <figure class="text-center">
         <a class="text-center link-dark" href="#navbarHeader">

@@ -57,8 +57,10 @@
                 <%= button_to "Cancelar", sale_product_cancel_path(current_sale), method: :delete, class: "btn btn-danger", style: "width:100%" %>
               </div>
               <div class="col-3">
-                <%= link_to sales_path, method: :post do %>
-                  <button type="button" class="btn btn-success" style="width:100%"> Confirmar </button>
+                <%= form_for :sale, url: sale_path(current_sale), method: :patch do |form| %>
+                  <%= form.hidden_field :total_amount, value: current_sale&.sale_products_total, class: "form-control" %>
+                  <%= form.hidden_field :total_balance, value: current_sale&.sale_products_total, class: "form-control" %>
+                  <%=form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
                 <% end %>
               </div>
             </div>

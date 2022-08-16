@@ -44,7 +44,15 @@
                 </td>
                 <td class="align-middle"><%= sale&.updated_at %></td>
                 <td class="align-middle">
-                  <span class="badge bg-danger"> <%= sale&.sale_status %> </span>
+                  <% if sale&.status === "pending" %>
+                    <span class="badge bg-danger"> <%= sale&.sale_status %> </span>
+                  <% end %>
+                  <% if sale&.status === "autorized" %>
+                    <span class="badge bg-warning"> <%= sale&.sale_status %> </span>
+                  <% end %>
+                  <% if sale&.status === "completed" %>
+                    <span class="badge bg-success"> <%= sale&.sale_status %> </span>
+                  <% end %>
                 </td>
                 <td class="align-middle text-end">
                   <%= link_to sale_path(sale) do %>
