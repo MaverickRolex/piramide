@@ -2,11 +2,16 @@ class Sale < ApplicationRecord
   belongs_to :user
   has_many :sale_products
   has_many :products, :through => :sale_product
+  has_many :payments
 
   enum status: %i[pending autorized completed]
 
   def sale_products_total
     sale_products.sum(:total_price)
+  end
+
+  def sale_payments_total
+    payments.sum(:amount)
   end
 
   def sale_status

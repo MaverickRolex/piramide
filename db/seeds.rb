@@ -12,4 +12,4 @@ User.create!(
   password: 'password',
   password_confirmation: 'password',
   admin: true
-) if Rails.env.development?
+)

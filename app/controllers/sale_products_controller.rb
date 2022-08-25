@@ -21,6 +21,16 @@ class SaleProductsController < ApplicationController
     end
   end
 
+  def show_remove
+    @sale_product = SaleProduct.find(params[:sale_product_id])
+    if @sale_product.destroy && current_user.admin
+      @sale_product.sale.total_amount = @sale_product.sale.sale_products_total
+      @sale_product.sale.save
+      flash[:notice] = "Producto eliminado con exito."
+      redirect_to sale_path(@sale_product.sale)
+    end
+  end
+
   def cancel
     @sale_products = SaleProduct.where(sale_id: current_sale.id)
     @sale_products.destroy_all

@@ -4,7 +4,11 @@ class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
   def index
-    @sales = Sale.all
+    if current_user.admin
+      @sales = Sale.all
+    else
+      @sales = Sale.where(user_id: current_user.id)
+    end
   end
 
   def new
@@ -36,7 +40,7 @@ class SalesController < ApplicationController
       redirect_to action: "index"
     end
   end
-  
+
   private
 
   def set_sale
@@ -44,7 +48,7 @@ class SalesController < ApplicationController
   end
 
   def sale_params
-    params.require(:sale).permit(:total_amount, :total_balance, :status )
+    params.requsire(:sale).permit(:total_amount, :total_balance, :status )
   end
 
 end

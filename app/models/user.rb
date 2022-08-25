@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :sales
+  has_many :payments
 
   def pending_sales
     sales.pending
