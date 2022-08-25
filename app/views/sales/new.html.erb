@@ -60,6 +60,7 @@
                 <%= form_for :sale, url: sale_path(current_sale), method: :patch do |form| %>
                   <%= form.hidden_field :total_amount, value: current_sale&.sale_products_total, class: "form-control" %>
                   <%= form.hidden_field :total_balance, value: current_sale&.sale_products_total, class: "form-control" %>
+                  <%= form.hidden_field :provider_balance, value: current_sale&.sale_products_total, class: "form-control" %>
                   <%=form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
                 <% end %>
               </div>
