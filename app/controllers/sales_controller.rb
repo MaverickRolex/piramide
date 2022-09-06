@@ -48,7 +48,7 @@ class SalesController < ApplicationController
   end
 
   def sale_params
-    params.requsire(:sale).permit(:total_amount, :total_balance, :status )
+    params.require(:sale).permit(:total_amount, :total_balance, :provider_balance, :status, :provider_status)
   end
 
 end
