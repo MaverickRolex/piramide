@@ -1,9 +1,97 @@
 <div class="container-fluid" style="padding-top: 30px;">
   <div class="row justify-content-center">
-    <div class="col-lg-6 col-xl-6" style="padding-right: 20px;">
 
+    <div class="col-lg-12 col-xl-12">
+      <div class="row justify-content-center">
+        <div class="col-lg-1 col-xl-1">
+          <%= link_to sales_path do %>
+            <i type='button' class="btn btn-secondary bi bi-chevron-left" style="font-size: 25px;"></i>
+          <% end %>
+        </div>
+
+        <div class="col-lg-2 col-xl-2"></div>
+
+        <div class="col-lg-2 col-xl-2">
+          <div class="card">
+            <% if current_user.admin && @sale&.provider_status %>
+              <div class="card-header bg-success" style="padding:4px;"></div>
+            <% else %>
+              <% if @sale&.status === "pending" %>
+                <div class="card-header bg-danger" style="padding:4px;"></div>
+              <% end %>
+              <% if @sale&.status === "budget" %>
+                <div class="card-header bg-warning" style="padding:4px;"></div>
+              <% end %>
+              <% if @sale&.status === "completed" %>
+                <div class="card-header bg-success" style="padding:4px;"></div>
+              <% end %>
+            <% end %>
+            <div class="card-body content" style="padding-top:8px; padding-bottom:8px;">
+              <div class="row">
+                <% if current_user.admin && @sale&.provider_status %>
+                  <div class="col-4 h4" style="margin:0px">
+                    <i class="bi bi-cash-coin text-success" style="--bs-bg-opacity: .5;"></i>
+                  </div>
+                  <div class="col-8 h4 text-end" style="margin:0px">
+                    <span class="badge bg-success"> Completado </span>
+                  </div>
+                <% else %>
+                  <% if @sale&.status === "pending" %>
+                    <div class="col-4 h4" style="margin:0px">
+                      <i class="bi bi-cash-coin text-danger" style="--bs-bg-opacity: .5;"></i>
+                    </div>
+                    <div class="col-8 h4 text-end" style="margin:0px">
+                      <span class="badge bg-danger"> <%= @sale&.sale_status %> </span>
+                    </div>
+                  <% end %>
+                  <% if @sale&.status === "budget" %>
+                    <div class="col-4 h4" style="margin:0px">
+                      <i class="bi bi-cash-coin text-warning" style="--bs-bg-opacity: .5;"></i>
+                    </div>
+                    <div class="col-8 h4 text-end" style="margin:0px">
+                      <span class="badge bg-warning"> <%= @sale&.sale_status %> </span>
+                    </div>
+                  <% end %>
+                  <% if @sale&.status === "completed" %>
+                    <div class="col-4 h4" style="margin:0px">
+                      <i class="bi bi-cash-coin text-success" style="--bs-bg-opacity: .5;"></i>
+                    </div>
+                    <div class="col-8 h4 text-end" style="margin:0px">
+                      <span class="badge bg-success"> <%= @sale&.sale_status %> </span>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-xl-1"></div>
+
+        <div class="col-lg-2 col-xl-2">
+          <div class="card">
+            <div class="card-header bg-success" style="padding:4px;">
+            </div>
+            <div class="card-body content" style="padding-top:8px; padding-bottom:8px;">
+              <div class="row">
+                <div class="col-4 h4" style="margin:0px">
+                  <i class="bi bi-cash-coin text-success" style="--bs-bg-opacity: .5;"></i>
+                </div>
+                <div class="col-8 h4 text-end" style="margin:0px">
+                  <%if current_user.admin %>
+                    $ <%= @sale.provider_balance%>.00
+                  <% else %>
+                    $ <%= @sale.total_balance%>.00
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 col-xl-5" style="padding-right: 15px; padding-top: 30px;">
       <div class="card">
-
         <div class="card-header">
           <div class="row align-items-center"  style="height: 31px;">
             <div class="col-6 text-start">
@@ -45,38 +133,20 @@
           </table>
         </div>
 
-        <div class="card-footer">
-          <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-3">
-              <%= link_to "Regresar", sales_path, class: "btn btn-secondary", style: "width:100%" %>
-            </div>
-            <div class="col-3">
-              <%= form_for :sale, url: sale_path(@sale), method: :patch do |form| %>
-                <%= form.hidden_field :status, value: "autorized", class: "form-control" %>
-                <%= form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
-              <% end %>
-            </div>
-          </div>
-        </div>
       </div>
-
     </div>
 
-    <div class="col-lg-4 col-xl-4" style="padding-left: 20px;">
-
+    <div class="col-lg-3 col-xl-3" style="padding-left: 15px; padding-top: 30px;">
       <div class="card">
-
         <div class="card-header">
           <div class="row align-items-center">
             <div class="col-6 text-start">
               <h5 style="margin-bottom: 0;">Pagos</h5>
             </div>
             <div class="col-6 text-end">
-              <%= link_to new_sale_path do %>
-                <i type='button' class="btn btn-success btn-sm bi bi-plus-lg"></i>
-              <% end %>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bi bi-plus-lg"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -100,7 +170,7 @@
               <tr>
                 <td></td>
                 <td class="align-middle text-end">Total</td>
-                <td class="align-middle text-end">$<%= @sale&.sale_payments_total %>.00</td>
+                <td class="align-middle text-end">$<%= @sale&.sale_payments_total(current_user.id) %>.00</td>
                 <td></td>
               </tr>
             </tfoot>
@@ -108,18 +178,52 @@
         </div>
 
         <div class="card-footer">
-          <div class="row">
-            <div class="col-8"></div>
-            <div class="col-4">
-              <%= form_for :sale, url: sale_path(@sale), method: :patch do |form| %>
-                <%= form.hidden_field :status, value: "autorized", class: "form-control" %>
-                <%= form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
+          <div class="text-end">
+            <%= form_for :sale, url: sale_path(@sale), method: :patch do |form| %>
+              <% if current_user.admin %>
+                <% if @sale.provider_balance === 0 && @sale.payments.where(user_id: @sale.user.id).length > 0 %>
+                  <%= form.hidden_field :provider_status, value: true, class: "form-control" %>
+                  <% if @sale.user.admin %>
+                    <%= form.hidden_field :status, value: 2, class: "form-control" %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% if @sale.total_balance === 0 && @sale.payments.where(user_id: @sale.user.id).length > 0 %>
+                  <%= form.hidden_field :status, value: 2, class: "form-control" %>
+                <% end %>
               <% end %>
-            </div>
+              <%= form.submit "Confirmar", class: "btn btn-success", style: "width:140px" %>
+            <% end %>
           </div>
         </div>
       </div>
-
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <%= form_for :payment, url: payments_path do |form| %>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Registrar Pago</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="input-group">
+                <%= form.hidden_field :user_id, value: current_user.id, class: "form-control" %>
+                <%= form.hidden_field :sale_id, value: @sale.id, class: "form-control" %>
+                <span class="input-group-text">Monto</span>
+                <span class="input-group-text">$</span>
+                <%= form.number_field :amount, class: "form-control", style: "text-align: right" %>
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <%= form.submit "Confirmar", class: "btn btn-success", style: "width:100%" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

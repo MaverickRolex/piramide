@@ -1,28 +1,14 @@
-<% if current_user.admin? %>
-  <tr>
-    <th scope="row" class="align-middle text-center"><%= sale_product&.product.code %></th>
-    <td class="align-middle"><%= sale_product&.product.name %></td>
-    <td class="align-middle text-end">$ <%= sale_product&.product.price %>.00</td>
-    <td class="align-middle text-end"><%= sale_product&.quantity %></td>
-    <td class="align-middle text-end">$ <%= sale_product&.total_price %>.00</td>
-    <td class="align-middle text-end">
-      <% if current_page?(new_sale_path) %>
-        <%= button_to sale_product_path(sale_product), method: :delete, class: "btn btn-danger btn-sm" do %>
-          <i class="bi bi-x-lg"></i>
-        <% end %>
-      <% else %>
-         <%= button_to sale_product_show_remove_path(sale_product), method: :delete, class: "btn btn-danger btn-sm" do %>
-          <i class="bi bi-x-lg"></i>
-        <% end %>
+<tr>
+  <th scope="row" class="align-middle text-center"><%= sale_product&.product.code %></th>
+  <td class="align-middle"><%= sale_product&.product.name %></td>
+  <td class="align-middle text-end">$ <%= sale_product&.product.price %>.00</td>
+  <td class="align-middle text-end"><%= sale_product&.quantity %></td>
+  <td class="align-middle text-end">$ <%= sale_product&.total_price %>.00</td>
+  <td class="align-middle text-end">
+    <% if current_page?(new_sale_path) %>
+      <%= button_to sale_product_path(sale_product), method: :delete, class: "btn btn-danger btn-sm" do %>
+        <i class="bi bi-x-lg"></i>
       <% end %>
-    </td>
-  </tr>
-<% else %>
-  <tr>
-    <th scope="row" class="align-middle text-center"><%= sale_product&.product.code %></th>
-    <td class="align-middle"><%= sale_product&.product.name %></td>
-    <td class="align-middle text-end">$ <%= sale_product&.product.price %>.00</td>
-    <td class="align-middle text-end"><%= sale_product&.quantity %></td>
-    <td class="align-middle text-end">$ <%= sale_product&.total_price %>.00</td>
-  </tr>
-<% end %>
+    <% end %>
+  </td>
+</tr>

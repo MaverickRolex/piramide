@@ -38,20 +38,26 @@
                   <% end %>
                 </td>
                 <td class="align-middle">
-                  <% if sale&.total_balance? %>
+                  <% if current_user.admin %>
+                    $ <%= sale&.provider_balance %>.00
+                  <% else %>
                     $ <%= sale&.total_balance %>.00
                   <% end %>
                 </td>
                 <td class="align-middle"><%= sale&.updated_at %></td>
                 <td class="align-middle">
-                  <% if sale&.status === "pending" %>
-                    <span class="badge bg-danger"> <%= sale&.sale_status %> </span>
-                  <% end %>
-                  <% if sale&.status === "autorized" %>
-                    <span class="badge bg-warning"> <%= sale&.sale_status %> </span>
-                  <% end %>
-                  <% if sale&.status === "completed" %>
-                    <span class="badge bg-success"> <%= sale&.sale_status %> </span>
+                  <% if current_user.admin && sale&.provider_status %>
+                    <span class="badge bg-success">Completado</span>
+                  <% else %>
+                    <% if sale&.status === "pending" %>
+                      <span class="badge bg-danger"> <%= sale&.sale_status %> </span>
+                    <% end %>
+                    <% if sale&.status === "budget" %>
+                      <span class="badge bg-warning"> <%= sale&.sale_status %> </span>
+                    <% end %>
+                    <% if sale&.status === "completed" %>
+                      <span class="badge bg-success"> <%= sale&.sale_status %> </span>
+                    <% end %>
                   <% end %>
                 </td>
                 <td class="align-middle text-end">
