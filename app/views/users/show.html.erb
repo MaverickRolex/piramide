@@ -7,7 +7,7 @@
         <div class="card-header container">
           <div class="row align-items-center">
             <div class="col-10 text-start">
-              <h5 style="margin-bottom: 0;">Informacion del Colaborador</h5>
+              <h5 style="margin-bottom: 0;">Colaborador Nivel <%= @user.calc_level(current_user) %></h5>
             </div>
             <% if current_user.id === @user.id || current_user.admin %>
               <div class="col-1 text-end">
@@ -42,7 +42,6 @@
               <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Correo</label>
               <input class="form-control" type="text" value="<%= @user.email %>" aria-label="Disabled input example" disabled readonly>
             </div>
-            </br>
             <div class="col-6" style="padding-top: 10px;">
               <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Telefono</label>
               <input class="form-control" type="text" value="<%= @user.phone %>" aria-label="Disabled input example" disabled readonly>
@@ -51,6 +50,28 @@
               <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Dirección</label>
               <textarea class="form-control" aria-label="Disabled input example" rows="3" disabled readonly><%= @user.address %></textarea>
             </div>
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+              <% if @user.parent.present? %>
+                <input class="form-control" type="text" value="<%= @user.parent.full_name %>" aria-label="Disabled input example" disabled readonly>
+              <% else %>
+                <input class="form-control" type="text" value="<%= @user.no_parent_message %>" aria-label="Disabled input example" disabled readonly>
+              <% end %>
+            </div>
+            <% if @user.children.present? %>
+              <div class="col-6" style="padding-top: 10px;">
+                <ul class="list-group">
+                  <% @user.children.each do |child| %>
+                    <li class="list-group-item"><%= child.full_name %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% else %>
+              <div class="col-6" style="padding-top: 10px;">
+                <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Colaboradores</label>
+                <input class="form-control" type="text" value="<%= @user.no_children_message %>" aria-label="Disabled input example" disabled readonly>
+              </div>
+            <% end %>
           </div>
         </div>
 
