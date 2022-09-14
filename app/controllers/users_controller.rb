@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = current_user.print_children
   end
 
   def new
@@ -25,17 +25,27 @@ class UsersController < ApplicationController
     else
       @user.admin = false
     end
+    
+    @user.registrer_id = current_user.id
+
+    if current_user.children.length < 3
+      @user.parent_id = current_user.id
+    end
 
     if @user.save
-      flash.now[:notice] = "Usuario creado."
+      flash[:notice] = "Usuario creado."
       redirect_to @user
     else
-      flash.now[:alert] = "Error al crear el usuario."
+      flash[:alert] = "Error al crear el usuario."
       render :new, status: :unprocessable_entity
     end
   end
-
+  
   def update
+    if !@user.level.present?
+      @user.level = params[:level] + 1
+    end
+
     if current_user.id === @user.id || current_user.admin
       if @user.admin === 1
         @user.admin = true
@@ -43,13 +53,13 @@ class UsersController < ApplicationController
         @user.admin = false
       end
       if @user.update(user_params)
-        flash.now[:notice] = "Los cambios han sido guardados."
+        flash[:notice] = "Los cambios han sido guardados."
         redirect_to @user
       else
         render :show, status: :unprocessable_entity
       end
     else
-      flash.now[:alert] = "No puede modificar otros usuarios, contacte al administrador."
+      flash[:alert] = "No puede modificar otros usuarios, contacte al administrador."
       render :show
     end
   end
@@ -57,10 +67,10 @@ class UsersController < ApplicationController
   def destroy
     if current_user.id === @user.id || current_user.admin
       if @user.destroy
-        flash.now[:notice] = "Usuario eliminado con exito."
+        flash[:notice] = "Usuario eliminado con exito."
         redirect_to action: "index"
       else
-        flash.now[:alert] = "No tiene permisos para eliminar usuarios, contacte al administrador."
+        flash[:alert] = "No tiene permisos para eliminar usuarios, contacte al administrador."
         render :show
       end
     end
@@ -73,6 +83,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :phone, :address, :admin, :authenticity_token )
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :phone, :address, :admin, :registrer_id, :parent_id, :authenticity_token)
   end
 end

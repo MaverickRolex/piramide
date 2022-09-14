@@ -21,10 +21,11 @@
             <tr>
               <th scope="col"></th>
               <th scope="col" class="text-center">ID</th>
+              <th scope="col" class="text-center">Nivel</th>
               <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
               <th scope="col">Correo</th>
               <th scope="col">Telefono</th>
+              <th scope="col">Padrino</th>
               <th scope="col" class="text-end">Acciones</th>
             </tr>
           </thead>
@@ -37,10 +38,11 @@
                   <% end %>
                 </th>
                 <th scope="row" class="align-middle text-center"><%=user.id %></th>
-                <td class="align-middle"><%=user.first_name %></td>
-                <td class="align-middle"><%=user.last_name %></td>
+                <td class="align-middle align-middle text-center"><%=user.calc_level(current_user) %></td>
+                <td class="align-middle"><%=user.full_name %></td>
                 <td class="align-middle"><%=user.email %></td>
                 <td class="align-middle"><%=user.phone %></td>
+                <td class="align-middle"><%=user.parent&.full_name %></td>
                 <td class="align-middle text-end">
                   <%= link_to user_path(user) do %>
                     <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
