@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = current_user.print_children
+    if current_user.admin?
+      @users = User.all
+    else
+      @users = current_user.print_children
+    end
   end
 
   def new
@@ -10,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    
+
   end
 
   def edit
@@ -25,11 +29,12 @@ class UsersController < ApplicationController
     else
       @user.admin = false
     end
-    
+
     @user.registrer_id = current_user.id
 
     if current_user.children.length < 3
       @user.parent_id = current_user.id
+      @user.level = current_user.level + 1
     end
 
     if @user.save
@@ -43,7 +48,10 @@ class UsersController < ApplicationController
   
   def update
     if !@user.level.present?
-      @user.level = params[:level] + 1
+      binding.pry
+      user_parent = User.find_by(id: user_params[:parent_id])
+      @user.level = user_parent.level + 1
+      binding.pry
     end
 
     if current_user.id === @user.id || current_user.admin

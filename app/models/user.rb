@@ -6,7 +6,10 @@ class User < ApplicationRecord
 
   has_many :sales
   has_many :payments
-  
+
+  belongs_to :registrer, foreign_key: :parent_id, class_name: "User", optional: true
+  has_many :records, foreign_key: :parent_id, class_name: "User"
+ 
   belongs_to :parent, foreign_key: :parent_id, class_name: "User", optional: true
   has_many :children, foreign_key: :parent_id, class_name: "User"
   
@@ -19,7 +22,11 @@ class User < ApplicationRecord
   end
 
   def calc_level(current_user)
-    level - current_user.level + 1
+    if level.present?
+      level - current_user.level + 1
+    else
+      " - Sin Asignar -"
+    end
   end
 
   def filter_children

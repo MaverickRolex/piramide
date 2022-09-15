@@ -1,24 +1,27 @@
 <div class="container-fluid" style="padding-top: 30px;">
   <div class="row justify-content-center">
-    <div class="col-sm-5 col-sm-offset-2">
+    <div class="col-sm-5 col-sm-offset-5" style="padding-rigth: 20px;">
 
       <div class="card">
-
         <div class="card-header container">
           <div class="row align-items-center">
-            <div class="col-10 text-start">
-              <h5 style="margin-bottom: 0;">Colaborador Nivel <%= @user.calc_level(current_user) %></h5>
+            <div class="col-9 text-start">
+              <h5 style="margin-bottom: 0;">Informacion del Colaborador</h5>
             </div>
             <% if current_user.id === @user.id || current_user.admin %>
-              <div class="col-1 text-end">
-                <%= link_to edit_user_path(@user), class: "btn btn-success" do %>
-                  <i class="bi bi-pencil-square"></i>
-                <% end %>
-              </div>
-              <div class="col-1 text-end">
-                <%= button_to user_path, method: :delete, class: "btn btn-danger" do %>
-                  <i class="bi bi-trash"></i>
-                <% end %>
+              <div class="col-3 text-end">
+                <div class="row">
+                  <div class="col-6 text-end">
+                    <%= link_to edit_user_path(@user), class: "btn btn-success" do %>
+                      <i class="bi bi-pencil-square"></i>
+                    <% end %>
+                  </div>
+                  <div class="col-6 text-end">
+                    <%= button_to user_path, method: :delete, class: "btn btn-danger" do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             <% end %>
           </div>
@@ -48,18 +51,78 @@
             </div>
             <div class="col-12" style="padding-top: 10px;">
               <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Dirección</label>
-              <textarea class="form-control" aria-label="Disabled input example" rows="3" disabled readonly><%= @user.address %></textarea>
+              <textarea class="form-control" aria-label="Disabled input example" rows="2" disabled readonly><%= @user.address %></textarea>
             </div>
-            <div class="col-6" style="padding-top: 10px;">
-              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+          </div>
+        </div>
+
+        <% if @user.admin %>
+          <div class="card-footer">
+            <div class="row align-items-center">
+              <div class="col-1 text-end">
+                <i class="bi bi-person-badge text-danger" style="font-size: 20px"></i>
+              </div>
+              <div class="col-4 text-start">
+                <h6 style="margin-bottom: 0;">Administrador</h6>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+
+    <div class="col-sm-3 col-sm-offset-3" style="padding-left: 20px;">
+
+      <div class="card">
+
+        <div class="card-header container">
+          <h5 style="margin-bottom: 0; padding-top: 7px; padding-bottom: 7px;">Nivel <%= @user.calc_level(current_user) %></h5>
+        </div>
+        
+        <div class="card-body container" style="padding: 20px;">
+          <div class="row">
+            <% if @user.admin %>
+              <div class="col-12">
+                <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                <input class="form-control" type="text" value="Administrador no requiere un padrino" aria-label="Disabled input example" disabled readonly>
+              </div>
+            <% else %>
               <% if @user.parent.present? %>
-                <input class="form-control" type="text" value="<%= @user.parent.full_name %>" aria-label="Disabled input example" disabled readonly>
+                <div class="col-12">
+                  <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                  <input class="form-control" type="text" value="<%= @user.parent.full_name %>" aria-label="Disabled input example" disabled readonly>
+                </div>
               <% else %>
-                <input class="form-control" type="text" value="<%= @user.no_parent_message %>" aria-label="Disabled input example" disabled readonly>
+                <div class="col-12" style="padding-top: 10px;">
+                  <% if current_user.id === @user.registrer_id || current_user.admin? %>
+                    <%= form_with(model: @user) do |form| %>
+                      <div class="row">
+                        <div class="col-9">
+                          <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                          <%= form.select :parent_id, current_user.filter_children.collect { |p| [p.level_and_full_name(current_user), p.id] }, {include_blank: 'Seleccione un padrino'}, class: "form-select" %>
+                        </div>
+                        <div class="col-3" style="padding-top: 32px;">
+                          <button type="submit" class="btn btn-success" style="width:100%;">
+                            <i class="bi bi-hdd"></i>
+                          </button>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="col-12" style="padding-top: 10px;">
+                    <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                    <input class="form-control" type="text" value="<%= @user.no_parent_message %>" aria-label="Disabled input example" disabled readonly>
+                  </div>
+                <% end %>
               <% end %>
-            </div>
+            <% end %>
+
             <% if @user.children.present? %>
-              <div class="col-6" style="padding-top: 10px;">
+              <div class="col-12" style="padding-top: 20px;">
+                <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Colaboradores</label>
                 <ul class="list-group">
                   <% @user.children.each do |child| %>
                     <li class="list-group-item"><%= child.full_name %></li>
@@ -67,8 +130,8 @@
                 </ul>
               </div>
             <% else %>
-              <div class="col-6" style="padding-top: 10px;">
-                <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Colaboradores</label>
+              <div class="col-12" style="padding-top: 10px;">
+                <label for="exampleFormControlInput1" class="form-label">Colaboradores</label>
                 <input class="form-control" type="text" value="<%= @user.no_children_message %>" aria-label="Disabled input example" disabled readonly>
               </div>
             <% end %>
