@@ -37,8 +37,14 @@
                     <i class="bi bi-person-badge text-danger" style="font-size: 20px"></i>
                   <% end %>
                 </th>
-                <th scope="row" class="align-middle text-center"><%=user.id %></th>
-                <td class="align-middle align-middle text-center"><%=user.calc_level(current_user) %></td>
+                <th scope="row" class="align-middle text-center"><%= user.id %></th>
+                <td class="align-middle align-middle text-center">
+                  <% if user.level.present? %>
+                    <%= user&.calc_level(current_user) %>
+                  <% else %>
+                    <i class="bi bi-exclamation-triangle text-warning"></i>
+                  <% end %>
+                </td>
                 <td class="align-middle"><%=user.full_name %></td>
                 <td class="align-middle"><%=user.email %></td>
                 <td class="align-middle"><%=user.phone %></td>
