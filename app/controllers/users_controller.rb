@@ -48,10 +48,8 @@ class UsersController < ApplicationController
   
   def update
     if !@user.level.present?
-      binding.pry
       user_parent = User.find_by(id: user_params[:parent_id])
       @user.level = user_parent.level + 1
-      binding.pry
     end
 
     if current_user.id === @user.id || current_user.admin
