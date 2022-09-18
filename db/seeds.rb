@@ -19,7 +19,7 @@ User.create!([
   {first_name: "Richie", last_name: "Ofaril", phone: "555 123 7894", address: "Av Pedregal No.463", admin: false, email: "rich.ofaril@mail.com", password: '123456', password_confirmation: '123456', registrer_id: 4, parent_id: 4, level: 3},
   {first_name: "Sakura", last_name: "Kinomoto", phone: "966 845 9931", address: "Calle Cetezos No. 366", admin: false, email: "sakura.kino@mail.com", password: '123456', password_confirmation: '123456', registrer_id: 1, parent_id: 4, level: 3},
   {first_name: "Daniel", last_name: "Larussso", phone: "557 145 3347", address: "Av. Resseda No. 120", admin: false, email: "daniel.san@mail.com", password: '123456', password_confirmation: '123456', registrer_id: 2, parent_id: 5, level: 4}
-]) if Rails.env.development?
+])
 
 Product.create!([
   {code: "PL3567",
@@ -40,5 +40,5 @@ Product.create!([
   ingredients: "mineral, piedra, te, chingaderas",
   price: 57,
   stock: 32},
-]) if Rails.env.development?
+])
 
