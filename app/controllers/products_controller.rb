@@ -54,7 +54,12 @@ class ProductsController < ApplicationController
   def search
     if params[:search][:code].present?
       product = Product.find_by(code: params[:search][:code].upcase)
-      redirect_to new_sale_path(product_id: product.id)
+      if product.present? 
+        redirect_to new_sale_path(product_id: product.id)
+      else
+        flash[:alert] = "No se encontro el producto"
+        redirect_to new_sale_path
+      end
     else
       flash[:alert] = "Ingrese Codigo"
       redirect_to new_sale_path
