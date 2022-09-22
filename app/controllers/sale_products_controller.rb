@@ -40,7 +40,6 @@ class SaleProductsController < ApplicationController
 
   def cancel
     @sale_products = SaleProduct.where(sale_id: current_sale.id)
-    binding.pry
     @sale_products.each do |sale_product|
       product = Product.find(sale_product.product_id)
       product.stock = product.stock + sale_product.quantity
