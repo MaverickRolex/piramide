@@ -35,8 +35,20 @@ class SalesController < ApplicationController
   end
 
   def destroy
+    sale_products = SaleProduct.where(sale_id: @sale.id)
+    if sale_products.present?
+      sale_products.each do |sale_product|
+        product = Product.find(sale_product.product_id)
+        product.stock = product.stock + sale_product.quantity
+        product.save
+      end 
+      sale_products.destroy_all
+    end
     if @sale.destroy
       flash[:notice] = "Venta cancelada."
+      redirect_to action: "index"
+    else
+      flash[:alert] = "Venta no cancelada."
       redirect_to action: "index"
     end
   end
