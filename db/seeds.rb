@@ -42,3 +42,17 @@ Product.create!([
   stock: 32},
 ])
 
+Rate.create!([
+  {guest: "3", payment: "$10", by_level: "$30", weekly: "$30", biweekly: "$60", monthly: "$120"},
+  {guest: "9", payment: "$20", by_level: "$180", weekly: "$210", biweekly: "$420", monthly: "$840"},
+  {guest: "27", payment: "$30", by_level: "$810", weekly: "$1,020", biweekly: "$2,040", monthly: "$4,080", rank: "Plata"},
+  {guest: "81", payment: "$30", by_level: "$2,430", weekly: "$3,450", biweekly: "$6,900", monthly: "$13,800", rank: "Oro"},
+  {guest: "243", payment: "$30", by_level: "$7,290", weekly: "$10,740", biweekly: "$21,480", monthly: "$42,960", rank: "Perla"},
+  {guest: "729", payment: "$10", by_level: "$7,290", weekly: "$18,030", biweekly: "$36,060", monthly: "$72,120", rank: "Rubí"},
+  {guest: "2,187", payment: "$10", by_level: "$21,870", weekly: "$39,900", biweekly: "$79,800", monthly: "$159,600", rank: "Esmeralda"},
+  {guest: "6,561", payment: "$10", by_level: "$65,610", weekly: "$105,510", biweekly: "$211,020", monthly: "$422,040", rank: "Diamante"},
+  {guest: "19,683", payment: "$10", by_level: "$196,830", weekly: "$302,340", biweekly: "$604,680", monthly: "$1,209,360", rank: "Diamante Rex"},
+  {guest: "59,049", payment: "$10", by_level: "$590,490", weekly: "$892,830", biweekly: "$1,785,660", monthly: "$3,571,320", rank: "Nushi Diamante"},
+  {guest: "177,147", payment: "$10", by_level: "$1,771,470", weekly: "$2,664,300", biweekly: "$5,328,600", monthly: "$10,657,200"},
+  {guest: "531,441", payment: "$10", by_level: "$5,314,410", weekly: "$7,978,710", biweekly: "$15,957,420", monthly: "$31,914,840"},
+])
