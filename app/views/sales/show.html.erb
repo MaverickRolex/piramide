@@ -184,12 +184,12 @@
                 <% if @sale.provider_balance === 0 && @sale.payments.where(user_id: @sale.user.id).length > 0 %>
                   <%= form.hidden_field :provider_status, value: true, class: "form-control" %>
                   <% if @sale.user.admin %>
-                    <%= form.hidden_field :status, value: 2, class: "form-control" %>
+                    <%= form.hidden_field :status, value: "completed", class: "form-control" %>
                   <% end %>
                 <% end %>
               <% else %>
                 <% if @sale.total_balance === 0 && @sale.payments.where(user_id: @sale.user.id).length > 0 %>
-                  <%= form.hidden_field :status, value: 2, class: "form-control" %>
+                  <%= form.hidden_field :status, value: "completed", class: "form-control" %>
                 <% end %>
               <% end %>
               <%= form.submit "Confirmar", class: "btn btn-success", style: "width:140px" %>

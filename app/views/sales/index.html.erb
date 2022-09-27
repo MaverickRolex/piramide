@@ -61,12 +61,20 @@
                   <% end %>
                 </td>
                 <td class="align-middle text-end">
-                  <%= button_to sale_path(sale), method: :delete, class: "btn btn-danger btn-sm" do %>
-                    <i class="bi bi-trash"></i>
-                  <% end %>
-                  <%= link_to sale_path(sale) do %>
-                    <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
-                  <% end %>
+                  <div class="row text-end">
+                    <div class="col text-end" style="padding:0px">
+                      <% if !sale.provider_status %>
+                        <%= button_to sale_path(sale), method: :delete, class: "btn btn-danger btn-sm" do %>
+                          <i class="bi bi-trash"></i>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="col-5 text-end">
+                      <%= link_to sale_path(sale) do %>
+                        <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
+                      <% end %>
+                    </div>
+                  </div>
                 </td>
               </tr>
             <% end %>
