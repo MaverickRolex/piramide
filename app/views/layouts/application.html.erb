@@ -28,10 +28,10 @@
     <nav id="navbarHeader" class="navbar navbar-expand-lg" style="background-color:#0a3622">
       <div class="container-fluid">
         <div>
-          <a class="navbar-brand text-white">
-            <i class="bi bi-shop" style="font-size: 30px; padding-left: 10px;"></i>
+          <a class="navbar-brand text-white" style="padding:0px">
+            <%= image_tag("logo_sayag_bco.png", size:"45x30", style:"padding-left: 10px;") %>
           </a>
-          <a class="navbar-brand text-white fs-4 w-bold h1" style="text-decoration:none" href="/">Sayagbéh</a>
+          <a class="navbar-brand text-white fs-4 w-bold h1 fw-bolder" style="text-decoration:none" href="/">Sayagbéh</a>
         </div>
         <ul class="nav justify-content-center">
           <% unless current_page?(new_user_session_path) %>

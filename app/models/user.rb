@@ -29,6 +29,12 @@ class User < ApplicationRecord
     end
   end
 
+  def print_children
+    (children.map do |user|
+      user.children + user.print_children
+    end.flatten + children).uniq
+  end
+
   def filter_children
     (print_children.map do |user|
       if user.children.length < 3
@@ -37,10 +43,9 @@ class User < ApplicationRecord
     end).compact!
   end
 
-  def print_children
-    (children.map do |user|
-      user.children + user.print_children
-    end.flatten + children).uniq
+  def count_collaborators(index, current_user)
+    children = print_children
+    children.count {|child| child.calc_level(current_user) === index + 1}
   end
 
   def level_and_full_name(current_user)

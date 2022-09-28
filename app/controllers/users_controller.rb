@@ -2,11 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    if current_user.admin?
-      @users = User.all
-    else
-      @users = current_user.print_children
-    end
+    @users = current_user.print_children
+    @rates = Rate.all
   end
 
   def new
