@@ -4,6 +4,7 @@
 
       <div class="card text-center">
         <h5 class="card-header">Inicio de Sesión</h5>
+        <%= image_tag("sayagbeh_color.png", class:"card-img-top", alt:"...", style:"padding-top:30px") %>
         <div class="card-body">
           <%= form_for(@user, url: user_session_path(@user)) do |f| %>
             <div class="field" style="padding-top: 30px;">

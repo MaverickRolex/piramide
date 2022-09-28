@@ -1,19 +1,23 @@
 <div id="contact" class="row justify-content-center">
-  <div class="col-sm-8 col-sm-offset-2">
+  <div class="col-sm-6 col-sm-offset-2">
     <br/>
     <div class="card">
       <div class="card-header bg-success p-2 bg-opacity-25">
         <div class="row">
-          <div class="col align-self-center" style="padding-top: 5px;">
-            <h5 style="padding-left: 20px;">Colaboradores</h5>
+          <div class="col align-self-center">
+            <h5 style="padding-left: 20px; margin:0px">
+              <% if current_user.admin %>
+                <i class="bi bi-person-badge text-danger" style="font-size: 20px; padding-right:20px"></i>
+              <% end %>
+              <%= current_user.full_name %>
+            </h5>
           </div>
           <div class="col d-flex justify-content-end">
             <%= link_to new_user_path do %>
-              <i type='button' class="btn btn-success bi bi-plus-lg"></i>
+              <i type='button' class="btn btn-success btn-sm bi bi-plus-lg"></i>
             <% end %>
           </div>
         </div>
-      </div>
       </div>
       <div class="card-body">
         <table class="table">
@@ -55,25 +59,82 @@
                   <% end %>
                 </td>
               </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer bg-success p-2 bg-opacity-25">
+        <ul class="pagination justify-content-end" style="margin-bottom: 0;">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-sm-offset-2">
+    <br/>
+    <div class="card">
+      <div class="card-header bg-success p-2 bg-opacity-25">
+        <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
+          Estado de tu Plataforma
+        </h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <% @rates.each do |rate| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div class="fw-bold">
+                Nivel - 
+                <%= rate.id %>
+              </div>
+              <% if current_user.count_collaborators(rate.id, current_user) === rate.guest.to_i %>
+                <% if !rate.rank %>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 3 %>
+                  <span class="badge text-dark" style="background-color:#adb5bd"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 4 %>
+                  <span class="badge text-dark bg-warning"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 5 %>
+                  <span class="badge text-dark" style="background-color:#fbeaf2"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 6 %>
+                  <span class="badge text-dark bg-danger"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 7 %>
+                  <span class="badge text-dark" style="background-color:#20c997"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 8 %>
+                  <span class="badge text-dark" style="background-color:#e9ecef"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 9 %>
+                  <span class="badge text-dark" style="background-color:#e9ecef"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% elsif  rate.id === 10 %>
+                  <span class="badge text-dark" style="background-color:#e9ecef"><%= rate.rank %></span>
+                  <span class="badge bg-success">Completado</span>
+                <% end %>
+              <% else %>
+                <span class="badge bg-primary rounded-pill">
+                  <%= current_user.count_collaborators(rate.id, current_user) %>
+                </span>
               <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-footer bg-success p-2 bg-opacity-25">
-          <ul class="pagination justify-content-end" style="margin-bottom: 0;">
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </div>
+          <% end %>
+        </ul>
+      </div>
+      <div class="card-footer bg-success p-2 bg-opacity-25">
+
       </div>
     </div>
   </div>
