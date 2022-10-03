@@ -41,6 +41,16 @@
                 <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Telefono</label>
                 <%= form.text_field :phone, class: "form-control" %>
               </div>
+              <% if @user.admin %>
+                <div class="col-6" style="padding-top: 10px;">
+                  <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Contraseña</label>
+                  <%= form.password_field :password, class: "form-control" %>
+                </div>
+                <div class="col-6" style="padding-top: 10px;">
+                  <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Confirmar Contraseña</label>
+                  <%= form.password_field :password_confirmation, class: "form-control" %>
+                </div>
+              <% end %>
               <div class="col-12" style="padding-top: 10px;">
                 <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Dirección</label>
                 <%= form.text_area :address, class: "form-control", rows: "2" %>
