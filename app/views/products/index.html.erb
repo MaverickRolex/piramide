@@ -1,16 +1,18 @@
 <div id="contact" class="row justify-content-center">
-  <div class="col-sm-8 col-sm-offset-2">
+  <div class="col-sm-9 col-sm-offset-2">
     <br/>
     <div class="card">
       <div class="card-header bg-success p-2 bg-opacity-25">
         <div class="row">
-          <div class="col" style="padding-top: 5px;">
-            <h5 style="padding-left: 20px;">Productos</h5>
+          <div class="col align-self-center">
+            <h5 style="padding-left: 20px; margin:0px">
+              Productos
+            </h5>
           </div>
           <% if current_user.admin %>
-            <div class="col d-flex justify-content-end">
+            <div class="col d-flex justify-content-end" style="padding-right:28px">
               <%= link_to new_product_path do %>
-                <i type='button' class="btn btn-success bi bi-plus-lg"></i>
+                <i type='button' class="btn btn-success btn-sm bi bi-plus-lg"></i>
               <% end %>
             </div>
           <% end %>
@@ -26,7 +28,7 @@
               <th scope="col">Ingredientes</th>
               <th scope="col" class="text-end">Piezas</th>
               <th scope="col" class="text-end">Precio</th>
-              <th scope="col" class="text-end"></th>
+              <th scope="col" class="text-end">Ver</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
@@ -49,19 +51,6 @@
           </table>
         </div>
         <div class="card-footer bg-success p-2 bg-opacity-25">
-          <ul class="pagination justify-content-end" style="margin-bottom: 0;">
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

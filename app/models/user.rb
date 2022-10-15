@@ -67,4 +67,33 @@ class User < ApplicationRecord
   def completed_sales
     sales.completed
   end
+
+  def weekly_sales
+    sales.where(created_at: DateTime.now.at_beginning_of_week..DateTime.now.at_end_of_week).completed
+  end
+
+  def weekly_sale_total
+    sales.where(created_at: DateTime.now.at_beginning_of_week..DateTime.now.at_end_of_week).completed.sum(:total_amount)
+  end
+
+  def last_weekly_sale_total
+    sales.where(created_at: (DateTime.now.at_beginning_of_week - 1).at_beginning_of_week..(DateTime.now.at_beginning_of_week - 1)).completed.sum(:total_amount)
+  end
+
+  def weekly_goal_validate
+    if weekly_sale_total > 473
+      true
+    else
+      false
+    end
+  end
+
+  def last_weekly_goal_validate
+    if last_weekly_sale_total > 473
+      true
+    else
+      false
+    end
+  end
+
 end
