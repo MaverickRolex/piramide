@@ -6,14 +6,6 @@ class Sale < ApplicationRecord
 
   enum status: %i[pending budget completed]
 
-  def sale_products_total
-    sale_products.sum(:total_price)
-  end
-
-  def sale_payments_total(current_user)
-    payments.where(user_id: current_user).sum(:amount)
-  end
-
   def sale_status
     case self.status
     when "pending"
@@ -26,4 +18,13 @@ class Sale < ApplicationRecord
       "Sin Asignar"
     end
   end
+  
+  def sale_products_total
+    sale_products.sum(:total_price)
+  end
+  
+  def sale_payments_total(current_user)
+    payments.where(user_id: current_user).sum(:amount)
+  end
+
 end
