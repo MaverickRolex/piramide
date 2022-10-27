@@ -94,61 +94,20 @@
           <h1>Productos</h1>
           <br/>
           <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/portfolio/game.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <% @products.each do |product| %>
+              
+              <div class="col">
+                <div class="card h-100">
+                  <%= link_to product_path(product) do %>
+                    <%= image_tag(product.picture_name, class:"card-img-top", style:"padding:25px;") %>
+                  <% end %>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= product.name %></h5>
+                    <p class="card-text"><%= product.description %></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/portfolio/cake.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a short card.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/portfolio/cabin.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/portfolio/safe.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/portfolio/circus.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/portfolio/submarine.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+            <% end %>
         </blockquote>
         <br/>
         <a class="text-center link-dark" href="#navbarHeader">

@@ -3,5 +3,6 @@ class HomesController < ApplicationController
 
   def index
     @rates = Rate.all
+    @products = Product.all
   end
 end

@@ -35,7 +35,7 @@
               <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Stock</label>
               <%= form.number_field :stock, class: "form-control", style: "text-align: right" %>
             </div>
-            </br>
+
             <div class="col-6" style="padding-top: 10px;">
               <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Precio</label>
               <div class="input-group">
@@ -43,6 +43,15 @@
                 <%= form.number_field :price, class: "form-control", style: "text-align: right" %>
                 <span class="input-group-text">.00</span>
               </div>
+            </div>
+
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Imagen</label>
+              <%= form.text_field :picture_name, class: "form-control" %>
+            </div>
+            <div class="col-6" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Video</label>
+              <%= form.text_field :video_url, class: "form-control" %>
             </div>
           </div>
         </div>

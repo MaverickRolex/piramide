@@ -61,7 +61,7 @@
               <li class="nav-item">
                 <a class="nav-link text-white fs-5 fw-semibold" href="/sales">Ventas</a>
               </li>
-              <% if current_user.admin? %>
+              <% if current_user&.admin? %>
                 <li class="nav-item">
                   <a class="nav-link text-white fs-5 fw-semibold" href="/messages">Mensajes</a>
                 </li>
@@ -75,7 +75,7 @@
               <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
                   <a class="text-white fs-7 fw-semibold" style="text-decoration:none">
-                    <%= current_user.first_name + " " + current_user.last_name %>
+                    <%= current_user&.first_name + " " + current_user&.last_name %>
                   </a>
                 </li>
                 <li class="nav-item dropdown" style="padding-left: 10px;">
