@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy, :search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -73,6 +73,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:code, :name, :description, :ingredients, :price, :stock)
+    params.require(:product).permit(:code, :name, :description, :ingredients, :price, :stock, :picture_name, :video_url)
   end
 end
