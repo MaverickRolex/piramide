@@ -3,6 +3,7 @@ class HomesController < ApplicationController
 
   def index
     @rates = Rate.all
-    @products = Product.all
+    @products = Product.all.page(params[:page]).per(3)
   end
+
 end

@@ -1,52 +1,43 @@
 <div class="container-fluid scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbarHeader" tabindex="0">
-  <div class="row justify-content-center bg-success p-2 bg-opacity-75">
-    <div class="col-sm-8 col-sm-offset-2">
-      <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="false">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
+  <div class="row align-items-center justify-content-center bg-success p-2 bg-opacity-75">
+    <div class="col-sm-1 col-sm-offset-2" style="padding-top:30px">
+      <a class="text-start">
+        <%= link_to_prev_page @products, "Anterior" %>
+      </a>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2" style="padding-top:30px">
+      <figure class="text-center">
+        <blockquote class="blockquote">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <% @products.each do |product| %>
+              <div class="col">
+                <div class="card h-100">
+                  <h3 class="card-header"><%= product.name %></h3>
+                  <%= link_to product_path(product) do %>
+                    <%= image_tag(product.picture_name, class:"card-img-top", style:"padding:25px; background-color:#ced4da;") %>
+                  <% end %>
+                  <div class="card-body">
+                    <p class="card-text"><%= product.description %></p>
+                  </div>
+                  <h2 class="card-footer text-end" style="margin:0px;">
+                    <span class="badge bg-success rounded-pill">$ <%= product.price %>.00</span>
+                  </h2>
+                </div>
+              </div>
+            <% end %>
           </div>
-          <div class="carousel-item">
-            <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Four slide label</h5>
-              <p>Some representative placeholder content for the four slide.</p>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
+        </blockquote>
+      </figure>
+      </br>
+      <figcaption class="blockquote-footer text-center fw-bold fs-6 text-body">
+        ACCESO A NUESTRO CATALOGO | <cite title="Source Title"> <%= link_to "ENTRA AQUI", products_path, class:"link-light" %> </cite>
+      </figcaption>
+      <br/>
+    </div>
+    <div class="col-sm-1" style="padding-top:30px">
+      <a class="text-end link-dark">
+        <%= link_to_next_page @products, "Siguiente" %>
+      </a>
     </div>
   </div>
 
@@ -86,28 +77,59 @@
     </div>
   </div>
 
-  <div id="products" class="row justify-content-center bg-success p-2 bg-opacity-75">
+  <div id="events" class="row justify-content-center bg-success p-2 bg-opacity-75">
     <div class="col-sm-8 col-sm-offset-2">
       <figure class="text-center">
         <blockquote class="blockquote">
           <br/>
-          <h1>Productos</h1>
+          <h1>Eventos</h1>
           <br/>
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <% @products.each do |product| %>
-              
-              <div class="col">
-                <div class="card h-100">
-                  <%= link_to product_path(product) do %>
-                    <%= image_tag(product.picture_name, class:"card-img-top", style:"padding:25px;") %>
-                  <% end %>
-                  <div class="card-body">
-                    <h5 class="card-title"><%= product.name %></h5>
-                    <p class="card-text"><%= product.description %></p>
-                  </div>
+          <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>First slide label</h5>
+                  <p>Some representative placeholder content for the first slide.</p>
                 </div>
               </div>
-            <% end %>
+              <div class="carousel-item">
+                <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Second slide label</h5>
+                  <p>Some representative placeholder content for the second slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Third slide label</h5>
+                  <p>Some representative placeholder content for the third slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.vecteezy.com/system/resources/previews/002/250/688/non_2x/abstract-white-background-with-many-identical-rhombuses-vector.jpg" class="w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Four slide label</h5>
+                  <p>Some representative placeholder content for the four slide.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </blockquote>
         <br/>
         <a class="text-center link-dark" href="#navbarHeader">
@@ -116,7 +138,6 @@
           </svg>
         </a>
       </figure>
-      <br/>
     </div>
   </div>
 
@@ -215,7 +236,6 @@
           </svg>
         </a>
       </figure>
-      <br/>
     </div>
   </div>
 
@@ -265,7 +285,6 @@
           </svg>
         </a>
       </figure>
-      <br/>
     </div>
   </div>
 

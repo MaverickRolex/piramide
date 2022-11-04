@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy, :search]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.all.order(id: "asc")
   end
 
   def new

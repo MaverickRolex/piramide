@@ -342,6 +342,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
+  kaminari
   pg
   pry-rails (~> 0.3.9)
   puma (~> 5.0)

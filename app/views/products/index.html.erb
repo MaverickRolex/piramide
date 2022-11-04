@@ -19,38 +19,23 @@
         </div>
       </div>
       <div class="card-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Codigo</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Ingredientes</th>
-              <th scope="col" class="text-end">Piezas</th>
-              <th scope="col" class="text-end">Precio</th>
-              <th scope="col" class="text-end">Ver</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <% @products.each do |product| %>
-              <tr>
-                <th scope="row"><%=product.code %></th>
-                <td><%=product.name %></td>
-                <td><%=product.description %></td>
-                <td><%=product.ingredients %></td>
-                <td class="text-end"><%=product.stock %></td>
-                <td class="text-end">$ <%=product.price %>.00</td>
-                <td class="text-end">
-                  <%= link_to product_path(product) do %>
-                    <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
-                  <% end %>
-                </td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-footer bg-success p-2 bg-opacity-25">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+          <% @products.each do |product| %>
+            <div class="col">
+              <div class="card h-100">
+                <h3 class="card-header"><%= product.name %></h3>
+                <%= link_to product_path(product) do %>
+                  <%= image_tag(product.picture_name, class:"card-img-top", style:"padding:25px; background-color:#ced4da;") %>
+                <% end %>
+                <div class="card-body">
+                  <p class="card-text"><%= product.description %></p>
+                </div>
+                <h2 class="card-footer text-end" style="margin:0px;">
+                  <span class="badge bg-success rounded-pill">$ <%= product.price %>.00</span>
+                </h2>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

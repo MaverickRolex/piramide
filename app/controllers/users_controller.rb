@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = current_user.print_children
+    @users = @users.sort_by { |user| user.level }
     @rates = Rate.all
   end
 
