@@ -40,7 +40,7 @@
                 <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#comunity">Comunidad</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#products">Produtos</a>
+                <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#events">Eventos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#platform">Plataforma</a>
@@ -49,22 +49,24 @@
                 <a class="nav-link text-white fs-5 fw-semibold" style="text-decoration:none" href="#contact">Contactanos</a>
               </li>
             <% else %>
-              <li class="nav-item">
-                <a class="nav-link text-white fs-5 fw-semibold" href="/dashboard">Estadisticas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white fs-5 fw-semibold" href="/users">Colaboradores</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white fs-5 fw-semibold" href="/products">Productos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white fs-5 fw-semibold" href="/sales">Ventas</a>
-              </li>
-              <% if current_user&.admin? %>
+              <% if user_signed_in? %>
                 <li class="nav-item">
-                  <a class="nav-link text-white fs-5 fw-semibold" href="/messages">Mensajes</a>
+                  <a class="nav-link text-white fs-5 fw-semibold" href="/dashboard">Estadisticas</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white fs-5 fw-semibold" href="/users">Colaboradores</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white fs-5 fw-semibold" href="/products">Productos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white fs-5 fw-semibold" href="/sales">Ventas</a>
+                </li>
+                <% if current_user&.admin? %>
+                  <li class="nav-item">
+                    <a class="nav-link text-white fs-5 fw-semibold" href="/messages">Mensajes</a>
+                  </li>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>

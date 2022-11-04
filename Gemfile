@@ -47,6 +47,8 @@ gem 'jquery-rails'
 
 gem 'pry-rails', '~> 0.3.9'
 
+gem 'kaminari'
+
 # Devise for log in
 gem 'devise'
 
