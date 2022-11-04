@@ -9,7 +9,7 @@
               Productos
             </h5>
           </div>
-          <% if current_user.admin %>
+          <% if current_user&.admin %>
             <div class="col d-flex justify-content-end" style="padding-right:28px">
               <%= link_to new_product_path do %>
                 <i type='button' class="btn btn-success btn-sm bi bi-plus-lg"></i>
