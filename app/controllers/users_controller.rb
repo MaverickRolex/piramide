@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @rates = Rate.all
   end
 
   def edit

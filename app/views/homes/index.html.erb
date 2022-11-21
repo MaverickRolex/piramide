@@ -1,9 +1,11 @@
 <div class="container-fluid scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbarHeader" tabindex="0">
   <div class="row align-items-center justify-content-center bg-success p-2 bg-opacity-75">
-    <div class="col-sm-1 col-sm-offset-2" style="padding-top:30px">
-      <a class="text-start">
-        <%= link_to_prev_page @products, "Anterior" %>
-      </a>
+    <div class="col-sm-1 col-sm-offset-2 text-end">
+      <% unless @products.first === @products.page.first %>
+        <%= link_to path_to_prev_page @products do %>
+          <i type='button' class="btn btn-light bi bi-chevron-compact-left" style="min-height:450px; padding-top:200px"></i>
+        <% end %>
+      <% end %>
     </div>
     <div class="col-sm-8 col-sm-offset-2" style="padding-top:30px">
       <figure class="text-center">
@@ -34,10 +36,12 @@
       </figcaption>
       <br/>
     </div>
-    <div class="col-sm-1" style="padding-top:30px">
-      <a class="text-end link-dark">
-        <%= link_to_next_page @products, "Siguiente" %>
-      </a>
+    <div class="col-sm-1 col-sm-offset-2">
+      <% unless @products.last === @products.page.last %>
+        <%= link_to path_to_next_page @products do %>
+          <i type='button' class="btn btn-light bi bi-chevron-compact-right" style="min-height:450px; padding-top:200px"></i>
+        <% end %>
+      <% end %>
     </div>
   </div>
 

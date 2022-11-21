@@ -7,14 +7,14 @@
           <% if current_user.weekly_sales.length > 0 %>
             <% if current_user.weekly_sale_total < 474 %>
               <div class="card-header bg-warning p-2 bg-opacity-25">
-                <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
+                <h5 style="padding-left: 15px; margin:0px; padding-top:4px; padding-bottom:4px;">
                   <% if current_user.admin %>
                     <i class="bi bi-person-badge" style="font-size: 20px; padding-right:20px"></i>
                   <% end %>
                   <%= current_user.full_name %>
                 </h5>
               </div>
-              <div class="card-body">
+              <div class="card-body" style="padding:13px">
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title">Aun no consigues la meta</h5>
@@ -22,7 +22,7 @@
                       No te desanimes ya casi lo logras solo te faltan:
                     </h6>
                   </div>
-                  <div class="col-4 text-end" style="padding:13px">
+                  <div class="col-4 text-end">
                     <h3 class="fs-3" style="margin:0px">
                       $ <%= 474 - current_user.weekly_sale_total %>.00
                     </h3>
@@ -31,14 +31,14 @@
               </div>
             <% else %>
               <div class="card-header bg-success p-2 bg-opacity-25">
-                <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
+                <h5 style="padding-left: 15px; margin:0px; padding-top:4px; padding-bottom:4px;">
                   <% if current_user.admin %>
                     <i class="bi bi-person-badge" style="font-size: 20px; padding-right:20px"></i>
                   <% end %>
                   <%= current_user.full_name %>
                 </h5>
               </div>
-              <div class="card-body">
+              <div class="card-body" style="padding:13px">
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title">FELICIDADES LO LOGRASTE</h5>
@@ -46,7 +46,7 @@
                       Has alcanzado la meta de esta semana con:
                     </h6>
                   </div>
-                  <div class="col-4 text-end" style="padding:13px">
+                  <div class="col-4 text-end">
                     <h3 class="fs-3" style="margin:0px">
                       $ <%= current_user.weekly_sale_total %>.00
                     </h3>
@@ -56,14 +56,14 @@
             <% end %>
           <% else %>
             <div class="card-header bg-danger p-2 bg-opacity-25">
-              <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
+              <h5 style="padding-left: 15px; margin:0px; padding-top:4px; padding-bottom:4px;">
                 <% if current_user.admin %>
                   <i class="bi bi-person-badge" style="font-size: 20px; padding-right:20px"></i>
                 <% end %>
                 <%= current_user.full_name %>
               </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="padding:13px">
               <div class="row">
                 <div class="col">
                   <h5 class="card-title">Aun no tienes ventas</h5>
@@ -71,7 +71,7 @@
                     Pero aun puedes lograrlo.
                   </h6>
                 </div>
-                <div class="col text-end" style="padding:13px">
+                <div class="col text-end">
                   <h3 class="fs-3" style="margin:0px">
                     Aun te quedan <%= 7 - DateTime.now.strftime("%u").to_i %> dias
                   </h3>
