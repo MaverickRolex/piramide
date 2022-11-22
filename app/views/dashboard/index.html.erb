@@ -1,4 +1,4 @@
-<div id="contact" class="row justify-content-center">
+<div class="row justify-content-center container-fluid">
   <div class="col-sm-9 col-sm-offset-2">
     <br/>
     <div class="row justify-content-center">
@@ -86,13 +86,13 @@
           <% if current_user.last_weekly_goal_validate %>
             <div class="card-header bg-success p-2 bg-opacity-25">
               <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
-                Semana Pasada
+                Ventas - Semana Pasada
               </h5>
             </div>
           <% else %>
             <div class="card-header bg-danger p-2 bg-opacity-25">
               <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
-                Semana Pasada
+                Ventas - Semana Pasada
               </h5>
             </div>
           <% end %>
@@ -118,7 +118,7 @@
             <div class="row">
               <div class="col-10">
                 <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
-                  Semana Actual
+                  Ventas - Semana Actual
                 </h5>
               </div>
               <div class="col-2 text-end">
@@ -147,6 +147,65 @@
         </div>
       </div>
       <div class="col-sm-8 col-sm-offset-2">
+        <% if current_user.admin? %>
+          <br/>
+          <% if @messages.present? %>
+            <div class="card">
+              <div class="card-header bg-success p-2 bg-opacity-25">
+                <div class="row">
+                  <div class="col align-self-center">
+                    <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
+                      Mensajes
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Correo</th>
+                      <th scope="col">Telefono</th>
+                      <th scope="col">Titulo</th>
+                      <th scope="col" class="text-end">Estatus</th>
+                      <th scope="col" class="text-end">Leer</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <% @messages.each do |message| %>
+                      <tr>
+                        <td><%= message&.name %></td>
+                        <td><%= message&.email %></td>
+                        <td><%= message&.phone %></td>
+                        <td><%= message&.title %></td>
+                        <td class="text-end">
+                          <% if message&.readed? %>
+                            <span class="badge bg-success"><%= message&.message_readed %></span>
+                          <% else %>
+                            <span class="badge bg-danger"><%= message&.message_readed %></span>
+                          <% end %>
+                        </td>
+                        <td class="text-end">
+                          <%= link_to message_path(message) do %>
+                            <i type="button" class="btn btn-outline-dark btn-sm bi bi-journal-text"></i>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer bg-success p-2 bg-opacity-25">
+              </div>
+            </div>
+          <% else %>
+            <div class="card text-center" style="padding:25px">
+              <h5 class="card-title">SIN MENSAJES</h5>
+              <p class="card-text">No hay mensajes sin leer</p>
+            </div>
+          <% end %>
+        <% end %>
         <br/>
         <div class="card text-center" style="padding:25px">
           <h5 class="card-title">SITIO EN CONSTRUCCION</h5>
@@ -211,10 +270,19 @@
                     </span>
                   </div>
                 </li>
+                <% @weekly_benefits += rate.payment.to_i * current_user.count_collaborators(rate.id, current_user) %>
               <% end %>
             </ul>
           </div>
           <div class="card-footer bg-success p-2 bg-opacity-25">
+            <div class="row" style="padding-left: 10px; margin:0px; padding-top:4px; padding-bottom:4px;">
+              <div class= "col-6">
+                <h5 style="margin:0px"> Beneficio semanal </h5>
+              </div>
+              <div class= "col-6 text-end">
+                <h5 style="margin:0px"> $ <%= @weekly_benefits %>.00 </h5>
+              </div>
+            </div>
           </div>
         </div>
       </div>

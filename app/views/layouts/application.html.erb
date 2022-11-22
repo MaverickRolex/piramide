@@ -90,7 +90,9 @@
                       <li><a class="dropdown-item" href="/dashboard">Ingresar al Sistema</a></li>
                     <% end %>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                    <li>
+                      <%= button_to "Mi Perfil", user_path(current_user), method: :get, target: "_self", class: "dropdown-item" %>
+                    </li>
                     <li>
                       <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, target: "_self", class: "dropdown-item" %>
                     </li>

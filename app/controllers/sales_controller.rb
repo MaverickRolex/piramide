@@ -40,6 +40,7 @@ class SalesController < ApplicationController
       sale_products.each do |sale_product|
         product = Product.find(sale_product.product_id)
         product.stock = product.stock + sale_product.quantity
+        product.sold = product.sold - sale_product.quantity
         product.save
       end 
       sale_products.destroy_all

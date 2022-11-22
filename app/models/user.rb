@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_many :sales
   has_many :payments
 
-  belongs_to :registrer, foreign_key: :parent_id, class_name: "User", optional: true
-  has_many :records, foreign_key: :parent_id, class_name: "User"
+  belongs_to :registrer, foreign_key: :registrer_id, class_name: "User", optional: true
+  has_many :records, foreign_key: :registrer_id, class_name: "User"
  
   belongs_to :parent, foreign_key: :parent_id, class_name: "User", optional: true
   has_many :children, foreign_key: :parent_id, class_name: "User"
