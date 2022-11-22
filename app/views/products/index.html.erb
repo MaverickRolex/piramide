@@ -23,7 +23,11 @@
           <% @products.each do |product| %>
             <div class="col">
               <div class="card h-100">
-                <h3 class="card-header"><%= product.name %></h3>
+                <% if product === @best_seller %>
+                  <h3 class="card-header text-center bg-warning"><%= product.name %></h3>
+                <% else %>
+                  <h3 class="card-header text-center"><%= product.name %></h3>
+                <% end %>
                 <%= link_to product_path(product) do %>
                   <%= image_tag(product.picture_name, class:"card-img-top", style:"padding:25px; background-color:#ced4da;") %>
                 <% end %>

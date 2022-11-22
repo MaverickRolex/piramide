@@ -23,6 +23,7 @@ class SaleProductsController < ApplicationController
     if @sale_product.destroy
       product = Product.find(@sale_product.product_id)
       product.stock = product.stock + @sale_product.quantity
+      product.sold = product.sold - @sale_product.quantity
       product.save
       flash[:notice] = "Producto eliminado con exito."
       redirect_to new_sale_path
@@ -44,6 +45,7 @@ class SaleProductsController < ApplicationController
     @sale_products.each do |sale_product|
       product = Product.find(sale_product.product_id)
       product.stock = product.stock + sale_product.quantity
+      product.sold = product.sold - @sale_product.quantity
       product.save
     end 
     @sale_products.destroy_all

@@ -5,9 +5,9 @@ class SalesController < ApplicationController
 
   def index
     if current_user.admin
-      @sales = Sale.all.page(params[:page]).per(3)
+      @sales = Sale.all
     else
-      @sales = Sale.where(user_id: current_user.id).page(params[:page]).per(3)
+      @sales = Sale.where(user_id: current_user.id)
     end
   end
 
