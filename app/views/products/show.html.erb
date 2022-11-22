@@ -53,17 +53,21 @@
                   <label for="exampleFormControlInput1" class="form-label">Ingredientes</label>
                   <textarea class="form-control" aria-label="Disabled input example" rows="3" disabled readonly><%= @product.ingredients %></textarea>
                 </div>
-                <div class="col-6" style="padding-top: 10px;">
+                <div class="col-4" style="padding-top: 10px;">
                   <label for="exampleFormControlInput1" class="form-label">Existencias</label>
                   <input class="form-control" type="number" value="<%= @product.stock %>" aria-label="Disabled input example" style="text-align: right" disabled readonly>
                 </div>
-                <div class="col-6" style="padding-top: 10px;">
+                <div class="col-4" style="padding-top: 10px;">
                   <label for="exampleFormControlInput1" class="form-label">Precio</label>
                   <div class="input-group" >
                     <span class="input-group-text">$</span>
                     <input type="number" class="form-control text-right" value="<%= @product.price %>" aria-label="Disabled input example" style="text-align: right" disabled readonly>
                     <span class="input-group-text">.00</span>
                   </div>
+                </div>
+                <div class="col-4" style="padding-top: 10px;">
+                  <label for="exampleFormControlInput1" class="form-label">Unidades Vendidas</label>
+                  <input class="form-control" type="number" value="<%= @product.sold %>" aria-label="Disabled input example" style="text-align: right" disabled readonly>
                 </div>
               </div>
             </div>
