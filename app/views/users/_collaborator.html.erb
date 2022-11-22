@@ -1,0 +1,215 @@
+<div class="row justify-content-center">
+
+  <div class="col-sm-4 col-sm-offset-5">
+    <div class="card" style="margin-bottom:30px">
+      <div class="card-header container" style="padding-right: 20px;">
+        <div class="row align-items-center">
+          <div class="col text-start">
+            <h5 style="margin-bottom: 0;">Informacion del Colaborador</h5>
+          </div>
+          <% if current_user.id === @user.id || current_user.admin %>
+            <div class="col-4 text-end">
+              <div class="row">
+                <div class="col text-end">
+                  <%= link_to edit_user_path(@user), class: "btn btn-success" do %>
+                    <i class="bi bi-pencil-square"></i>
+                  <% end %>
+                </div>
+                <div class="col-4 text-end">
+                  <%= button_to user_path, method: :delete, class: "btn btn-danger" do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="card-body container" style="padding: 20px;">
+        <div class="row">
+          <div class="col-2">
+            <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">ID</label>
+            <input class="form-control" type="text" value="<%= @user.id %>" aria-label="Disabled input example" disabled readonly>
+          </div>
+          <div class="col-5">
+            <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Nombres</label>
+            <input class="form-control" type="text" value="<%= @user.first_name %>" aria-label="Disabled input example" disabled readonly>
+          </div>
+          <div class="col-5">
+            <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Apellidos</label>
+            <input class="form-control" type="text" value="<%= @user.last_name %>" aria-label="Disabled input example" disabled readonly>
+          </div>
+          <div class="col-6" style="padding-top: 10px;">
+            <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Correo</label>
+            <input class="form-control" type="text" value="<%= @user.email %>" aria-label="Disabled input example" disabled readonly>
+          </div>
+          <div class="col-6" style="padding-top: 10px;">
+            <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Telefono</label>
+            <input class="form-control" type="text" value="<%= @user.phone %>" aria-label="Disabled input example" disabled readonly>
+          </div>
+          <div class="col-12" style="padding-top: 10px;">
+            <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Dirección</label>
+            <textarea class="form-control" aria-label="Disabled input example" rows="2" disabled readonly><%= @user.address %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <% if @user.admin %>
+        <div class="card-footer">
+          <div class="row align-items-center">
+            <div class="col-1 text-end">
+              <i class="bi bi-person-badge text-danger" style="font-size: 20px"></i>
+            </div>
+            <div class="col-4 text-start">
+              <h6 style="margin-bottom: 0;">Administrador</h6>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="col-sm-3 col-sm-offset-2" style="padding-left: 10px;">
+    <div class="card">
+      <div class="card-header container">
+        <h5 style="margin-bottom: 0; padding-top: 7px; padding-bottom: 7px;">Nivel <%= @user.calc_level(current_user) %></h5>
+      </div>
+      
+      <div class="card-body container" style="padding: 20px;">
+        <div class="row">
+          <% if @user.admin %>
+            <div class="col-12">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+              <input class="form-control" type="text" value="Administrador no requiere un padrino" aria-label="Disabled input example" disabled readonly>
+            </div>
+          <% else %>
+            <% if @user.parent.present? %>
+              <div class="col-12">
+                <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                <input class="form-control" type="text" value="<%= @user.parent.full_name %>" aria-label="Disabled input example" disabled readonly>
+              </div>
+            <% else %>
+              <div class="col-12" style="padding-top: 10px;">
+                <% if current_user.id === @user.registrer_id || current_user.admin? %>
+                  <%= form_with(model: @user) do |form| %>
+                    <div class="row">
+                      <div class="col-9">
+                        <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                        <%= form.select :parent_id, current_user.filter_children.collect { |p| [p.level_and_full_name(current_user), p.id] }, {include_blank: 'Seleccione un padrino'}, class: "form-select" %>
+                      </div>
+                      <div class="col-3" style="padding-top: 32px;">
+                        <button type="submit" class="btn btn-success" style="width:100%;">
+                          <i class="bi bi-hdd"></i>
+                        </button>
+                      </div>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Padrino</label>
+                  <input class="form-control" type="text" value="<%= @user.no_parent_message %>" aria-label="Disabled input example" disabled readonly>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if @user.children.present? %>
+            <div class="col-12" style="padding-top: 20px;">
+              <label for="exampleFormControlInput1" class="form-label" style="padding-left: 10px;">Colaboradores</label>
+              <ul class="list-group">
+                <% @user.children.each do |child| %>
+                  <li class="list-group-item"><%= child.full_name %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% else %>
+            <div class="col-12" style="padding-top: 10px;">
+              <label for="exampleFormControlInput1" class="form-label">Colaboradores</label>
+              <input class="form-control" type="text" value="<%= @user.no_children_message %>" aria-label="Disabled input example" disabled readonly>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @user.admin %>
+        <div class="card-footer">
+          <div class="row align-items-center">
+            <div class="col-1 text-end">
+              <i class="bi bi-person-badge text-danger" style="font-size: 20px"></i>
+            </div>
+            <div class="col-4 text-start">
+              <h6 style="margin-bottom: 0;">Administrador</h6>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-sm-3 col-sm-offset-3" style="padding-left: 10px;">
+    <div class="card">
+      <div class="card-header bg-success p-2 bg-opacity-25">
+        <h5 style="padding-left: 20px; margin:0px; padding-top:4px; padding-bottom:4px;">
+          Sistema Siembra
+        </h5>
+      </div>
+      <div class="card-body" style="margin-left:10px; margin-right:10px">
+        <ul class="list-group list-group-flush">
+          <% @rates.each do |rate| %>
+            <li class="row list-group-item d-flex justify-content-between align-items-center" style="padding-left:0px; padding-right:0px">
+              <div class="col-3">
+                <div class="fw-bold">
+                  Nivel - 
+                  <%= rate.id %>
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <a>
+                  $ <%= rate.payment.to_i * @user.count_collaborators(rate.id, @user) %>.00
+                </a>
+              </div>
+              <div class="col-5 text-end">
+                <% if @user.count_collaborators(rate.id, @user) === rate.guest.to_i %>
+                  <% if !rate.rank %>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 3 %>
+                    <span class="badge text-dark" style="background-color:#adb5bd"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 4 %>
+                    <span class="badge text-dark bg-warning"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 5 %>
+                    <span class="badge text-dark" style="background-color:#fbeaf2"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 6 %>
+                    <span class="badge text-dark bg-danger"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 7 %>
+                    <span class="badge text-dark" style="background-color:#20c997"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 8 %>
+                    <span class="badge text-dark" style="background-color:#e9ecef"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 9 %>
+                    <span class="badge text-dark" style="background-color:#e9ecef"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% elsif  rate.id === 10 %>
+                    <span class="badge text-dark" style="background-color:#e9ecef"><%= rate.rank %></span>
+                    <span class="badge bg-success">Completado</span>
+                  <% end %>
+                <% end %>
+                <span class="badge bg-primary rounded-pill">
+                  <%= @user.count_collaborators(rate.id, @user) %>
+                </span>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="card-footer bg-success p-2 bg-opacity-25">
+      </div>
+    </div>
+  </div>
+
+</div>

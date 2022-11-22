@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = current_user.print_children
+    if current_user.admin?
+      @users = User.all
+    else
+      @users = current_user.print_children
+    end
     @users = @users.sort_by { |user| user.level }
     @rates = Rate.all
   end
@@ -48,23 +52,27 @@ class UsersController < ApplicationController
     if !@user.level.present?
       user_parent = User.find_by(id: user_params[:parent_id])
       @user.level = user_parent.level + 1
-    end
-
-    if current_user.id === @user.id || current_user.admin
-      if @user.admin === 1
-        @user.admin = true
-      else
-        @user.admin = false
-      end
       if @user.update(user_params)
         flash[:notice] = "Los cambios han sido guardados."
         redirect_to @user
-      else
-        render :show, status: :unprocessable_entity
       end
     else
-      flash[:alert] = "No puede modificar otros usuarios, contacte al administrador."
-      render :show
+      if current_user.id === @user.id || current_user.admin
+        if @user.admin === 1
+          @user.admin = true
+        else
+          @user.admin = false
+        end
+        if @user.update(user_params)
+          flash[:notice] = "Los cambios han sido guardados."
+          redirect_to @user
+        else
+          render :show, status: :unprocessable_entity
+        end
+      else
+        flash[:alert] = "No puede modificar otros usuarios, contacte al administrador."
+        render :show
+      end
     end
   end
 
@@ -87,6 +95,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :phone, :address, :admin, :registrer_id, :parent_id, :authenticity_token)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :phone, :address, :admin, :registrer_id, :parent_id, :level, :authenticity_token)
   end
 end

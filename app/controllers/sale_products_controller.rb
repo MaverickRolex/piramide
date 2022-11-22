@@ -8,6 +8,7 @@ class SaleProductsController < ApplicationController
       if sale_product.save
         product = Product.find(params[:sale_product][:product_id])
         product.stock = product.stock - params[:sale_product][:quantity].to_i
+        product.sold = product.sold + params[:sale_product][:quantity].to_i
         product.save
       end
       redirect_to new_sale_path
